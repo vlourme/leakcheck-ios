@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    static public let api: API = API()
-    
     @State public var isModal: Bool = false
     @State private var title: String = "LeakCheck"
     
