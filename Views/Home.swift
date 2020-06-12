@@ -12,10 +12,14 @@ struct HomeView: View {
     @State public var isModal: Bool = false
     @State private var title: String = "LeakCheck"
     
+    @State private var checks: Int = 0
+    @State private var keywords: Int = 0
+    @State private var status: String = "Not linked"
+    
     var body: some View {
         NavigationView {
             TabView {
-                Dashboard().tabItem {
+                Dashboard(checks: checks, keywords: keywords, status: status).tabItem {
                     Image(systemName: "house.fill")
                     Text("Dashboard")
                 }.onAppear(perform: {
@@ -38,6 +42,19 @@ struct HomeView: View {
                 
             }
             .navigationBarTitle(title)
+        }.onAppear() {
+            // Update default view
+            do {
+                // Make request
+                let (checks, keywords) = try Globals.client.getLimits()
+                
+                // Fill values
+                self.checks = checks
+                self.keywords = keywords
+                self.status = "Linked"
+            } catch {
+                
+            }
         }
     }
 }

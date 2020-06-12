@@ -9,22 +9,9 @@
 import SwiftUI
 
 struct Dashboard: View {
-    @State private var checks: Int = 0
-    @State private var keywords: Int = 0
-    @State private var status: String = "Not linked"
-    
-    func update() throws {
-        // Make request
-        do {
-            // Do request
-            let (checks, keywords) = try Globals.client.getLimits()
-            
-            // Set
-            self.checks = checks
-            self.keywords = keywords
-            self.status = "Linked"
-        }
-    }
+    @State public var checks: Int = 0
+    @State public var keywords: Int = 0
+    @State public var status: String = "Not linked"
     
     var body: some View {
         VStack(alignment: .trailing) {
@@ -37,7 +24,13 @@ struct Dashboard: View {
             Spacer()
         }.onAppear(perform: {
             do {
-                try self.update()
+                // Do request
+                let (checks, keywords) = try Globals.client.getLimits()
+                
+                // Update
+                self.checks = checks
+                self.keywords = keywords
+                self.status = "Linked"
             } catch {
                 
             }
