@@ -12,14 +12,16 @@ struct RowView: View {
     var row: Result
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("\(row.username):\(row.password)").fixedSize(horizontal: false, vertical: true)
-            }
-            if row.sources.count > 0 {
-                Text(row.sources.joined(separator: ", ")).font(.subheadline).foregroundColor(.gray)
-            } else {
-                Text("Unknown source").font(.subheadline).foregroundColor(.gray)
+        NavigationLink(destination: CompleteRowView(row: row)) {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("\(row.username):\(row.password)").fixedSize(horizontal: false, vertical: true)
+                }
+                if row.sources.count > 0 {
+                    Text(row.sources.joined(separator: ", ")).font(.subheadline).foregroundColor(.gray)
+                } else {
+                    Text("Unknown source").font(.subheadline).foregroundColor(.gray)
+                }
             }
         }
     }

@@ -17,31 +17,22 @@ struct HomeView: View {
     @State private var status: String = "Not linked"
     
     var body: some View {
-        NavigationView {
-            TabView {
-                Dashboard(checks: checks, keywords: keywords, status: status).tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Dashboard")
-                }.onAppear(perform: {
-                    self.title = "LeakCheck"
-                })
-                
-                Search().tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("Search")
-                }.onAppear(perform: {
-                    self.title = "Search"
-                })
-                
-                Settings().tabItem {
-                    Image(systemName: "person.fill")
-                    Text("Settings")
-                }.onAppear(perform: {
-                    self.title = "Settings"
-                })
-                
+        TabView {
+            Dashboard(checks: checks, keywords: keywords, status: status).tabItem {
+                Image(systemName: "house.fill")
+                Text("Dashboard")
             }
-            .navigationBarTitle(title)
+            
+            Search().tabItem {
+                Image(systemName: "magnifyingglass")
+                Text("Search")
+            }
+            
+            Settings().tabItem {
+                Image(systemName: "gear")
+                Text("Settings")
+            }
+            
         }.onAppear() {
             // Update default view
             do {

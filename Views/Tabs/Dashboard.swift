@@ -14,14 +14,17 @@ struct Dashboard: View {
     @State public var status: String = "Not linked"
     
     var body: some View {
-        VStack(alignment: .trailing) {
-            Card(status: String(checks), title: "Checks left", startingColor: .pink, endingColor: .red)
-            
-            Card(status: String(keywords), title: "Keywords checks left", startingColor: .orange, endingColor: .red)
-            
-            Card(status: status, title: "API Key", startingColor: .yellow, endingColor: .orange)
-            
-            Spacer()
+        NavigationView {
+            VStack(alignment: .trailing) {
+                Card(status: String(checks), title: "Checks left", startingColor: .pink, endingColor: .red)
+                
+                Card(status: String(keywords), title: "Keywords checks left", startingColor: .orange, endingColor: .red)
+                
+                Card(status: status, title: "API Key", startingColor: .yellow, endingColor: .orange)
+                
+                Spacer()
+            }
+        .navigationBarTitle("LeakCheck")
         }.onAppear(perform: {
             do {
                 // Do request

@@ -44,61 +44,64 @@ struct Search: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
-                TextField("Query", text: $input)
-                    .autocapitalization(.none)
-                    .keyboardType(.emailAddress)
+        NavigationView {
+            VStack {
+                HStack {
+                    TextField("Query", text: $input)
+                        .autocapitalization(.none)
+                        .keyboardType(.emailAddress)
+                        .padding()
+                        .disabled(isLoading)
+                    
+                    Button(action: {
+                        // Set as loading
+                        self.isLoading = true
+                        
+                        do {
+                            try self.search()
+                        } catch {
+                            print(error)
+                        }
+                    }) {
+                        Image(systemName: "magnifyingglass").font(.headline)
+                    }
                     .padding()
                     .disabled(isLoading)
+                }
                 
-                Button(action: {
-                    // Set as loading
-                    self.isLoading = true
+                Form {
+                    Section {
+                        Picker(selection: $selectedType, label: Text("")) {
+                            ForEach(0 ..< types.count, id: \.self) {
+                                TypeSelector(type: types[$0])
+                            }
+                        }.disabled(isLoading)
+                    }
                     
-                    do {
-                        try self.search()
-                    } catch {
-                        print(error)
+                    if isLoading {
+                        Text("Loading, please wait...")
                     }
-                }) {
-                    Image(systemName: "magnifyingglass").font(.headline)
-                }
-                .padding()
-                .disabled(isLoading)
-            }
-            
-            Form {
-                Section {
-                    Picker(selection: $selectedType, label: Text("")) {
-                        ForEach(0 ..< types.count, id: \.self) {
-                            TypeSelector(type: types[$0])
+                    
+                    if isError {
+                        Text(errorDescription)
+                    }
+                    
+                    if !isError && rows.count > 0 {
+                        if (rows.count > 1) {
+                            Text("\(rows.count) results")
+                        } else {
+                            Text("\(rows.count) result")
                         }
-                    }.disabled(isLoading)
-                }
-                
-                if isLoading {
-                    Text("Loading, please wait...")
-                }
-                
-                if isError {
-                    Text(errorDescription)
-                }
-                
-                if !isError && rows.count > 0 {
-                    if (rows.count > 1) {
-                        Text("\(rows.count) results")
-                    } else {
-                        Text("\(rows.count) result")
                     }
-                }
-                
-                if !isError {
-                    List(rows) { row in
-                        RowView(row: row)
+                    
+                    if !isError {
+                        List(rows) { row in
+                            RowView(row: row)
+                        }
                     }
                 }
             }
+            .navigationBarTitle("Search")
         }
     }
 }
