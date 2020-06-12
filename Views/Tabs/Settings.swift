@@ -125,7 +125,7 @@ struct Settings: View {
         }.onAppear() {
             // Load saved settings
             self.key = Globals.settings.string(forKey: "key") ?? ""
-            self.useMirror = Globals.settings.bool(forKey: "token")
+            self.useMirror = Globals.settings.bool(forKey: "useMirror")
             
             // Get IP
             do {
