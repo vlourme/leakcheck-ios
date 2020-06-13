@@ -14,20 +14,6 @@ struct CompleteRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Result").font(.title).bold().padding()
-                
-                Spacer()
-                
-                Button(action: {
-                    let items = ["\(self.row.username):\(self.row.password)"]
-                    let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
-                    UIApplication.shared.windows.first?.rootViewController?.present(ac, animated: true, completion: nil)
-                }) {
-                    Image(systemName: "square.and.arrow.up")
-                }.padding().font(.headline)
-            }
-            
-            HStack {
                 Text("Username").padding()
                 
                 Spacer()
@@ -44,18 +30,27 @@ struct CompleteRowView: View {
             }
             
             Form {
-                if row.sources.count > 0 {
-                    Section(header: Text("Sources")) {
+                Section(header: Text("Sources")) {
+                    if row.sources.count > 0 {
                         List {
                             ForEach(0 ..< row.sources.count, id: \.self) {
                                 Text(self.row.sources[$0])
                             }
                         }
+                    } else {
+                        Text("Unknown source")
                     }
-                } else {
-                    EmptyView()
                 }
             }
+                
+            .navigationBarTitle("Result")
+            .navigationBarItems(trailing: Button(action: {
+                let items = ["\(self.row.username):\(self.row.password)"]
+                let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+                UIApplication.shared.windows.first?.rootViewController?.present(ac, animated: true, completion: nil)
+            }) {
+                Image(systemName: "square.and.arrow.up")
+            }.font(.headline))
         }
     }
 }
