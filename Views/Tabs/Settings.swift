@@ -51,6 +51,13 @@ struct Settings: View {
                     Text(ip)
                         .foregroundColor(.gray)
                         .padding()
+                    
+                    Button(action: {
+                        let pasteboard = UIPasteboard.general
+                        pasteboard.string = self.ip
+                    }) {
+                        Image(systemName: "doc.on.doc")
+                    }.padding()
                 }
                 
                 Toggle(isOn: $useMirror) {
