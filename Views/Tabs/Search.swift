@@ -74,8 +74,10 @@ struct Search: View {
                         Picker(selection: $selectedType, label: Text("")) {
                             ForEach(0 ..< types.count, id: \.self) {
                                 TypeSelector(type: types[$0])
-                            }
-                        }.disabled(isLoading)
+                            }.navigationBarTitle("Select a method")
+                        }
+                        .disabled(isLoading)
+                        .navigationBarTitle("Search")
                     }
                     
                     if isLoading {
@@ -101,7 +103,6 @@ struct Search: View {
                     }
                 }
             }
-            .navigationBarTitle("Search")
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
