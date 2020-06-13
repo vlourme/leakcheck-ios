@@ -2,6 +2,10 @@
     <img src="https://i.imgur.com/Rl77uDz.png" width="128" />
 </p>
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/vlourme/leakcheck-ios)
+![GitHub All Releases](https://img.shields.io/github/downloads/vlourme/leakcheck-ios/total)
+![GitHub](https://img.shields.io/github/license/vlourme/leakcheck-ios)
+
 # LeakCheck iOS Client
 > This project is a iOS app client for [LeakCheck.net](https://leakcheck.net). It has been made in Swift with SwiftUI.
 
