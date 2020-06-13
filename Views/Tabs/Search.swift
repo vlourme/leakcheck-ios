@@ -102,7 +102,7 @@ struct Search: View {
                 }
             }
             .navigationBarTitle("Search")
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
